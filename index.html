@@ -8,24 +8,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root {
             --primary: #00ff88;
             --primary-glow: rgba(0, 255, 136, 0.4);
             --bg-dark: #0a0a0a;
             --card-bg: #141414;
+            --nav-bg: rgba(10, 10, 10, 0.8); 
             --text-gray: #b0b0b0;
             --text-main: #ffffff;
         }
 
         /* Custom Scrollbar */
+        ::selection {
+            background: var(--primary);
+            color: #000;
+        }
+        ::-moz-selection {
+            background: var(--primary);
+            color: #000;
+        }
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
         ::-webkit-scrollbar-thumb:hover { background: #00cc6a; }
 
-        /* Scroll Progress Bar */
         #scroll-progress {
             position: fixed;
             top: 0;
@@ -38,7 +46,6 @@
             transition: width 0.1s;
         }
 
-        /* Custom Gaming Cursor */
         body {
             font-family: 'Cairo', sans-serif;
             background-color: var(--bg-dark);
@@ -66,13 +73,12 @@
             filter: drop-shadow(0 0 15px rgba(0, 255, 136, 1));
         }
 
-        /* Navbar */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
             padding: 15px 0;
-            background: rgba(10, 10, 10, 0.8);
+            background: var(--nav-bg); 
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid rgba(0, 255, 136, 0.1);
@@ -108,10 +114,7 @@
         }
         #theme-toggle:hover { background: var(--primary); color: #000; box-shadow: 0 0 10px var(--primary-glow); }
 
-        /* Hide Default Google Translate */
-        #google_translate_element { display: none; }
-        .goog-te-banner-frame { display: none !important; }
-        body { top: 0 !important; }
+
 
         /* Custom Dropdown Lang */
         .lang-wrapper { position: relative; }
@@ -189,8 +192,25 @@
         header p { color: var(--text-gray); font-size: 1.2em; }
 
         .container { width: 90%; max-width: 1000px; margin: auto; padding: 60px 0; }
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.2em; position: relative; display: inline-block; left: 50%; transform: translateX(-50%); color: var(--text-main); }
-        .section-title::after { content: ''; position: absolute; width: 50%; height: 3px; background: var(--primary); bottom: -10px; left: 25%; border-radius: 5px; }
+        .section-title {
+            text-align: center;
+            margin: 0 auto 50px auto; /* بيخلي العنصر في نص الحاوية بالظبط */
+            font-size: 2.2em;
+            position: relative;
+            display: block; /* غيرناه لـ block عشان الـ margin auto يشتغل */
+            color: var(--text-main);
+            width: fit-content; /* بياخد مساحة النص بس عشان الخط اللي تحت يظبط */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 20%;
+            border-radius: 5px;
+        }
 
         /* About Me Section */
         .about-section {
@@ -329,6 +349,40 @@
         }
         #toast.show { bottom: 30px; }
 
+        .project-stats {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+            color: var(--text-gray);
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .project-stats i {
+            color: var(--primary);
+        }
+        .project-stats span {
+            color: var(--text-main);
+        }
+
+        body.light-mode .service-card, 
+        body.light-mode .project-card, 
+        body.light-mode .about-section, 
+        body.light-mode .skills-container, 
+        body.light-mode .contact-form {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+            border: 1px solid #ddd !important;
+        }
+        
+        body.light-mode .nav-links a {
+            color: #000 !important; 
+        }
+        
+        body.light-mode .nav-links a:hover {
+            color: var(--primary) !important;
+        }
+
         /* Loader Animation */
         #loader {
             position: fixed; inset: 0; background: var(--bg-dark); display: flex; flex-direction: column;
@@ -340,7 +394,19 @@
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; text-shadow: 0 0 20px var(--primary); } 100% { opacity: 0.5; } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        @media (max-width: 900px) { .nav-links { display: none; } .tools-container { margin-right: auto; } }
+        @media (max-width: 900px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-links {
+                gap: 10px;
+                font-size: 0.9em;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            header h1 { font-size: 3em; } /* تصغير العنوان شوية للموبايل */
+        }
     </style>
 </head>
 <body>
@@ -354,7 +420,7 @@
         <span id="toast-msg">تم النسخ بنجاح!</span>
     </div>
 
-    <div id="google_translate_element"></div>
+   
 
     <div id="loader">
         <h2 class="loader-text">بيحمّل يا هندسة..</h2>
@@ -363,39 +429,19 @@
 
     <nav>
         <div class="nav-container">
+            
             <div class="nav-right">
                 <a href="#" class="logo">Eto.</a>
                 <div class="tools-container">
                     <button id="theme-toggle" title="تغيير المظهر"><i class="fas fa-moon"></i></button>
-                    
-                    <div class="lang-wrapper">
-                        <button class="lang-btn" onclick="toggleLangMenu()">
-                            <i class="fas fa-globe"></i> اللغة
-                        </button>
-                        <div class="lang-dropdown" id="lang-menu">
-                            <input type="text" class="lang-search" id="lang-search" placeholder="ابحث عن لغة..." onkeyup="filterLangs()">
-                            <ul class="lang-list" id="lang-list">
-                                <li onclick="changeLang('ar')">العربية (Arabic)</li>
-                                <li onclick="changeLang('en')">الإنجليزية (English)</li>
-                                <li onclick="changeLang('fr')">الفرنسية (French)</li>
-                                <li onclick="changeLang('de')">الألمانية (German)</li>
-                                <li onclick="changeLang('es')">الإسبانية (Spanish)</li>
-                                <li onclick="changeLang('ru')">الروسية (Russian)</li>
-                                <li onclick="changeLang('zh-CN')">الصينية (Chinese)</li>
-                                <li onclick="changeLang('ja')">اليابانية (Japanese)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="nav-links">
+                </div> </div> <div class="nav-links">
                 <a href="#about">عني</a>
                 <a href="#services">خدماتي</a>
                 <a href="#skills">مهاراتي</a>
                 <a href="#projects">أعمالي</a>
                 <a href="#contact">تواصل معي</a>
             </div>
+
         </div>
     </nav>
 
@@ -470,62 +516,97 @@
                 <input type="text" id="project-search" class="project-search-input" placeholder="ابحث عن مشروع..." onkeyup="filterProjects()">
             </div>
 
-            <div class="projects-grid">
+        <div class="projects-grid">
                 <div class="project-card" data-aos="fade-up" data-aos-delay="100">
                     <h3>Academic Society</h3>
                     <p>ده الموقع الرسمي لمجتمعنا على ديسكورد، حاجة كده منظمة ومحترمة تليق بيكم.</p>
-                    <a href="https://academicsociety.github.io/Academic-Society/" class="btn-main" target="_blank">شوف المشروع</a>
+                    <div class="project-stats">
+                        <i class="fas fa-eye"></i> <span id="count-academic">0</span> زيارة
+                    </div>
+                    <a href="https://academicsociety.github.io/Academic-Society/" class="btn-main" target="_blank" onclick="updateCounter('academic')">شوف المشروع</a>
                 </div>
 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="200">
                     <h3><i class="fas fa-book-quran" style="margin-left: 8px;"></i> ويب سايت القرآن الكريم</h3>
                     <p>موقع "الماهر" لقراءة القرآن الكريم بتصميم هادئ ومريح للعين.</p>
-                    <a href="https://academicsociety.github.io/Al-maher-/" class="btn-main" target="_blank">شوف المشروع</a>
+                    <div class="project-stats">
+                        <i class="fas fa-eye"></i> <span id="count-almaher_web">0</span> زيارة
+                    </div>
+                    <a href="https://academicsociety.github.io/Al-maher-/" class="btn-main" target="_blank" onclick="updateCounter('almaher_web')">شوف المشروع</a>
                 </div>
+
                 <div class="project-card" data-tilt data-tilt-max="10" data-aos="fade-up" data-aos-delay="300">
                     <h3><i class="fas fa-book-quran" style="margin-left: 8px;"></i>برنامج الماهر للقران الكريم للكومبيوتر</h3>
                     <p>برنامج قران كريم فيه جميع القرائ وتقدر تحمل القران كامل بصوت القارئ المفضل ليك وفيه زي راديو لكل القرائ شغال 24/7 وفيه اذكار بس لسه بتتظبط</p>
-                    <a href="https://www.mediafire.com/file/qe2p7ezacji8cyw/Al+Maher.zip/file" class="btn-main" target="_blank">حمل من هنا</a>
+                    <div class="project-stats">
+                        <i class="fas fa-download"></i> <span id="count-almaher_pc">0</span> تحميل
+                    </div>
+                    <a href="https://www.mediafire.com/file/qe2p7ezacji8cyw/Al+Maher.zip/file" class="btn-main" target="_blank" onclick="updateCounter('almaher_pc')">حمل من هنا</a>
                 </div>
+
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3><i class="fas fa-book-quran" style="margin-left: 8px;"></i>برنامج الماهر للقران الكريم للموبايل</h3>
-                    <p>برنامج الماهر للقران الكريم للموبايل , فيه كل القرائ وفيه سبحه وفيه توقيت الصلاة , تقدر تحمل القران كامل  بصوت القارئ الي انت عاوزه او لو سوره انت بتحبها</p>
-                    <a href="https://github.com/AcademicSociety/Al-maher-/releases/download/Al_Maher/Al-Maher.apk" class="btn-main" target="_blank">حمل من هنا</a>
+                    <p>برنامج الماهر للقران الكريم للموبايل , فيه كل القرائ وفيه سبحه وفيه توقيت الصلاة , تقدر تحمل القران كامل بصوت القارئ الي انت عاوزه.</p>
+                    <div class="project-stats">
+                        <i class="fas fa-download"></i> <span id="count-almaher_mobile">0</span> تحميل
+                    </div>
+                    <a href="https://github.com/AcademicSociety/Al-maher-/releases/download/Al_Maher/Al-Maher.apk" class="btn-main" target="_blank" onclick="updateCounter('almaher_mobile')">حمل من هنا</a>
                 </div>
+
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>Eto Temp Cleaner</h3>
                     <p>ده برنامج بسيط تقدر من خلاله تمسح الكاش الي ف الميموري وتسريع الجهاز.</p>
-                    <a href="https://www.mediafire.com/file/2vg7ne2zycj6ias/Eto_Temp_Cleaner.zip/file" class="btn-main" target="_blank">شوف المشروع</a>
+                    <div class="project-stats">
+                        <i class="fas fa-download"></i> <span id="count-temp_cleaner">0</span> تحميل
+                    </div>
+                    <a href="https://www.mediafire.com/file/2vg7ne2zycj6ias/Eto_Temp_Cleaner.zip/file" class="btn-main" target="_blank" onclick="updateCounter('temp_cleaner')">حمل من هنا</a>
                 </div>
                 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>Calculater</h3>
                     <p>ده اله حاسبه بسيطه اتمني تعجبكم</p>
-                    <a href="https://engmohammedsaad.github.io/Calculator/" class="btn-main" target="_blank">شوف المشروع</a>
+                    <div class="project-stats">
+                        <i class="fas fa-eye"></i> <span id="count-calculator">0</span> زيارة
+                    </div>
+                    <a href="https://engmohammedsaad.github.io/Calculator/" class="btn-main" target="_blank" onclick="updateCounter('calculator')">شوف المشروع</a>
                 </div>
+
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>سبحة الكترونيه</h3>
                     <p>ده سبحة الكترونية يارب تعجبكم</p>
-                    <a href="https://engmohammedsaad.github.io/-/" class="btn-main" target="_blank">شوف المشروع</a>
+                    <div class="project-stats">
+                        <i class="fas fa-eye"></i> <span id="count-rosary">0</span> زيارة
+                    </div>
+                    <a href="https://engmohammedsaad.github.io/-/" class="btn-main" target="_blank" onclick="updateCounter('rosary')">شوف المشروع</a>
                 </div>
+
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>Pomodoro Timer</h3>
                     <p>ده تايمر بسيط جدا بتختار الوقت وشكل التايم وتركز ع شغلك ربنا يوفقك</p>
-                    <a href="https://engmohammedsaad.github.io/Timer-Pc-/" class="btn-main" target="_blank">شوف المشروع</a>
+                    <div class="project-stats">
+                        <i class="fas fa-eye"></i> <span id="count-pomodoro">0</span> زيارة
+                    </div>
+                    <a href="https://engmohammedsaad.github.io/Timer-Pc-/" class="btn-main" target="_blank" onclick="updateCounter('pomodoro')">شوف المشروع</a>
                 </div>
                 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>Eto Manager</h3>
-                    <p>ده برنامج او tool بسيطه زي task manager بس مجمعه فيها حاجات كتيره تختصر وقت وتعب ف ال settings حملها وقولي رايك</p>
-                    <a href="https://www.mediafire.com/file/z09by4z5wuzhap1/Eto+Manager.zip/file" class="btn-main" target="_blank">حمل من هنا</a>
+                    <p>ده برنامج او tool بسيطه زي task manager بس مجمعه فيها حاجات كتيره تختصر وقت وتعب ف ال settings.</p>
+                    <div class="project-stats">
+                        <i class="fas fa-download"></i> <span id="count-eto_manager">0</span> تحميل
+                    </div>
+                    <a href="https://www.mediafire.com/file/z09by4z5wuzhap1/Eto+Manager.zip/file" class="btn-main" target="_blank" onclick="updateCounter('eto_manager')">حمل من هنا</a>
                 </div>
+
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>Eto Converter</h3>
-                    <p>ده converter تقدر تحول كل الصيغ الي ممكن تيجي ع بالك  png , jpg , icon , webp , jpeg , bmp , gif , تقدر كمان تصغر حجم الفيديو بتاعك
-تقدر كمان تحول فيديوهات ممكن تحول من mp4 to mp3 , mp3 to mp4 , فيه كمان avi , mkv , aac , wav ,
-تقدر كمان تعمل بي دي اف محترم تختار الصور براحتك وتحطها ف ملف بي دي اف جاهز  وتقدر كمان تحول من فيديو ل gif ولو عندك اي استفسار ابعتلي تحت ع الايميل , ربنا يوفقك  </p>
-                    <a href="https://www.mediafire.com/file/hc1cpeh5787qcuq/Eto_Converter.zip/file" class="btn-main" target="_blank">حمل من هنا</a>
+                    <p>ده converter تقدر تحول كل الصيغ الي ممكن تيجي ع بالك png , jpg , mp4 to mp3 , والمزيد من الأدوات.</p>
+                    <div class="project-stats">
+                        <i class="fas fa-download"></i> <span id="count-eto_converter">0</span> تحميل
+                    </div>
+                    <a href="https://www.mediafire.com/file/hc1cpeh5787qcuq/Eto_Converter.zip/file" class="btn-main" target="_blank" onclick="updateCounter('eto_converter')">حمل من هنا</a>
                 </div>
+
                 <div class="project-card" data-aos="fade-up" data-aos-delay="400">
                     <h3>Coming Soon..</h3>
                     <p>شغالين على مشروع جديد هيفاجئكم، استنوا العظمة اللي جاية قريباً جداً!</p>
@@ -537,14 +618,12 @@
                     <button class="btn-main" style="background: transparent; border-color: #555; color: #aaa;" disabled>قريباً</button>
                 </div>
             </div>
-        </div>
-
         <div id="contact">
             <h2 class="section-title" data-aos="fade-up">سيبلي رسالة</h2>
-            <form action="https://formspree.io/f/mnjgpooa" method="POST" class="contact-form" data-aos="zoom-in">
-                <input type="text" name="name" placeholder="اسمك الكريم" required>
-                <input type="email" name="email" placeholder="إيميلك (عشان أرد عليك)" required>
-                <textarea name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
+            <form id="firebase-contact-form" class="contact-form" data-aos="zoom-in">
+                <input type="text" id="sender-name" placeholder="اسمك الكريم" required>
+                <input type="email" id="sender-email" placeholder="إيميلك (عشان أرد عليك)" required>
+                <textarea id="sender-message" placeholder="اكتب رسالتك هنا..." required></textarea>
                 <button type="submit" class="btn-main"><i class="fas fa-paper-plane"></i> إرسال الرسالة</button>
             </form>
         </div>
@@ -578,53 +657,33 @@
         <p style="margin-top: 50px; color: #444; font-weight: bold;">&copy; 2026 Mohammed Eto - صلِّ على النبي</p>
     </footer>
 
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+    <script>
+        // إعدادات مشروعك
+        const firebaseConfig = {
+            apiKey: "AIzaSyCcW5saR6ZTAgQhOIO-bV-qtKYtUwzFKd0",
+            authDomain: "eto-portfolio-a1057.firebaseapp.com",
+            databaseURL: "https://eto-portfolio-a1057-default-rtdb.firebaseio.com/", 
+            projectId: "eto-portfolio-a1057",
+            storageBucket: "eto-portfolio-a1057.firebasestorage.app",
+            messagingSenderId: "42435925554",
+            appId: "1:42435925554:web:cb6d59f5ce4927178c8e2b",
+            measurementId: "G-4EY0ML0VSW"
+        };
+
+        // تشغيل Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+    </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
 
     <script>
-        // Google Translate Initialization
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'ar', 
-                includedLanguages: 'ar,en,fr,de,es,ru,zh-CN,ja',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
 
-        // Custom Language Dropdown Logic
-        function toggleLangMenu() {
-            document.getElementById('lang-menu').classList.toggle('show');
-            document.getElementById('lang-search').focus();
-        }
 
-        function filterLangs() {
-            let input = document.getElementById('lang-search').value.toLowerCase();
-            let items = document.getElementById('lang-list').getElementsByTagName('li');
-            for (let i = 0; i < items.length; i++) {
-                let text = items[i].textContent || items[i].innerText;
-                items[i].style.display = text.toLowerCase().includes(input) ? "" : "none";
-            }
-        }
 
-        function changeLang(langCode) {
-            let select = document.querySelector('.goog-te-combo');
-            if(select) {
-                select.value = langCode;
-                select.dispatchEvent(new Event('change'));
-            }
-            document.getElementById('lang-menu').classList.remove('show');
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.lang-wrapper')) {
-                document.getElementById('lang-menu').classList.remove('show');
-            }
-        });
-
-        // Scroll Progress Bar
         window.addEventListener('scroll', () => {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -637,7 +696,6 @@
             else btn.style.display = "none";
         });
 
-        // Custom Cursor Logic
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', e => {
             cursor.style.left = e.clientX + 'px';
@@ -653,21 +711,88 @@
             isLight = !isLight;
             let root = document.documentElement.style;
             if(isLight) {
-                root.setProperty('--bg-dark', '#e0e5ec');
+
+                root.setProperty('--bg-dark', '#f4f7f6'); 
                 root.setProperty('--card-bg', '#ffffff');
-                root.setProperty('--text-gray', '#555555');
+                root.setProperty('--nav-bg', 'rgba(255, 255, 255, 0.8)'); // شريط فاتح
+                root.setProperty('--text-gray', '#444444');
                 root.setProperty('--text-main', '#000000');
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                document.body.classList.add('light-mode');
             } else {
+
                 root.setProperty('--bg-dark', '#0a0a0a');
                 root.setProperty('--card-bg', '#141414');
+                root.setProperty('--nav-bg', 'rgba(10, 10, 10, 0.8)'); 
                 root.setProperty('--text-gray', '#b0b0b0');
                 root.setProperty('--text-main', '#ffffff');
                 themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                document.body.classList.remove('light-mode');
             }
         });
 
-        // Epic ID & Display Name Copy Function
+        function updateCounter(projectId) {
+            const projectRef = database.ref('projects/' + projectId);
+            projectRef.transaction((currentCount) => {
+                return (currentCount || 0) + 1;
+            });
+        }
+
+
+        function displayCounters() {
+            const projectsRef = database.ref('projects');
+            projectsRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if(data) {
+                    for (let id in data) {
+                        const element = document.getElementById('count-' + id);
+                        if (element) {
+                            element.innerText = data[id];
+                        }
+                    }
+                }
+            });
+        }
+
+        displayCounters();
+
+
+        emailjs.init("xns1EEqtpWbZlS66l"); 
+
+        const contactForm = document.getElementById('firebase-contact-form');
+        if(contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // عشان الصفحة ماتعملش ريفريش
+                
+                const name = document.getElementById('sender-name').value;
+                const email = document.getElementById('sender-email').value;
+                const msg = document.getElementById('sender-message').value;
+                
+                // تجهيز المتغيرات اللي هتتبعت للـ Template اللي عملناه
+                const templateParams = {
+                    from_name: name,      
+                    from_email: email,   
+                    message: msg          
+                };
+
+                // إرسال الإيميل (حط الـ Service ID والـ Template ID بتوعك هنا)
+                emailjs.send("service_9dgtdce", "template_r9k0ycf", templateParams)
+                .then(() => {
+                    // إظهار إشعار النجاح باستخدام الـ Toast بتاعك
+                    const toast = document.getElementById('toast');
+                    document.getElementById('toast-msg').innerHTML = 'رسالتك وصلت يا هندسة! هرد عليك قريب.';
+                    toast.classList.add('show');
+                    setTimeout(() => toast.classList.remove('show'), 4000);
+                    
+                    // تفريغ الفورم بعد الإرسال
+                    contactForm.reset();
+                }).catch((error) => {
+                    alert('حصلت مشكلة في الإرسال، جرب تاني.');
+                    console.error('EmailJS Error:', error);
+                });
+            });
+        }
+
         function copyEpicID() {
             const epicData = "Mohammed Eto | ID: bc552d6054f14f598b4b95e5e7337059";
             navigator.clipboard.writeText(epicData).then(() => {
