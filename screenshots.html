@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshots | Mohammed Eto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a0a; color: #fff; font-family: 'Cairo', sans-serif;
+            margin: 0; padding: 40px 20px; text-align: center;
+        }
+        h1 { color: #00ff88; text-shadow: 0 0 15px rgba(0,255,136,0.5); margin-bottom: 40px; }
+        .back-btn {
+            display: inline-block; margin-bottom: 30px; padding: 10px 20px;
+            background: transparent; border: 2px solid #00ff88; color: #00ff88;
+            text-decoration: none; border-radius: 8px; transition: 0.3s;
+        }
+        .back-btn:hover { background: #00ff88; color: #000; box-shadow: 0 0 15px rgba(0,255,136,0.5); }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        
+        .img-wrapper {
+            background: #141414;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            transition: 0.3s;
+        }
+        .img-wrapper:hover { border-color: #00ff88; box-shadow: 0 10px 20px rgba(0,255,136,0.2); transform: translateY(-5px); }
+        
+        .img-title {
+            color: #b0b0b0;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .gallery img {
+            width: 100%; border-radius: 5px; 
+            cursor: pointer; object-fit: cover;
+        }
+        
+        #error-msg { color: #ff4444; display: none; font-size: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع للموقع</a>
+    <h1 id="project-title">جاري التحميل...</h1>
+    <p id="error-msg">معلش يا هندسة، ملقيناش المشروع ده!</p>
+    
+    <div class="gallery" id="gallery-container"></div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('id');
+
+        if(projectId) {
+            fetch('projects.json')
+                .then(response => response.json())
+                .then(data => {
+                    const project = data[projectId];
+                    if(project) {
+                        document.getElementById('project-title').innerText = "صور: " + project.name;
+                        const gallery = document.getElementById('gallery-container');
+                        
+                        // بنلف على مصفوفة أسماء الصور اللي حطيناها في الـ JSON
+                        if(project.screenshots && project.screenshots.length > 0) {
+                            project.screenshots.forEach(imgName => {
+                                // مسار الصورة
+                                const imgPath = `screen shots/${project.screenshots_folder}/${imgName}`;
+                                // بنشيل الامتداد (.png أو .jpg) عشان نعرض الاسم نضيف
+                                const cleanTitle = imgName.split('.')[0]; 
+                                
+                                gallery.innerHTML += `
+                                    <div class="img-wrapper">
+                                        <div class="img-title">${cleanTitle}</div>
+                                        <img src="${imgPath}" alt="${cleanTitle}">
+                                    </div>
+                                `;
+                            });
+                        } else {
+                            gallery.innerHTML = "<p style='color: #b0b0b0; width: 100%;'>مفيش صور متسجلة للمشروع ده حالياً.</p>";
+                        }
+                    } else {
+                        showError();
+                    }
+                }).catch(err => {
+                    console.error(err);
+                    showError("حصلت مشكلة في تحميل ملف البيانات (تأكد إنك فاتح الموقع بـ Live Server).");
+                });
+        } else {
+            showError();
+        }
+
+        function showError(msg = null) {
+            document.getElementById('project-title').style.display = 'none';
+            document.getElementById('error-msg').style.display = 'block';
+            if(msg) document.getElementById('error-msg').innerText = msg;
+        }
+    </script>
+</body>
+</html>

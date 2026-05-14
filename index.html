@@ -407,6 +407,66 @@
             }
             header h1 { font-size: 3em; } /* تصغير العنوان شوية للموبايل */
         }
+/* Games Section Cards */
+        .game-card {
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid #222;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--text-main);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 1;
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), #8a2be2, var(--primary));
+            z-index: -1;
+            border-radius: 22px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .game-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--card-bg);
+            z-index: -1;
+            border-radius: 18px;
+        }
+
+        .game-card:hover { 
+            transform: translateY(-12px) scale(1.02); 
+            border-color: transparent;
+        }
+        
+        .game-card:hover::before {
+            opacity: 1;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        .game-card h3 { color: #fff; margin-top: 0; font-size: 1.8em; text-shadow: 0 0 10px var(--primary-glow); }
+        .game-card p { color: var(--text-gray); flex-grow: 1; }
+        .game-icon { font-size: 3.5em; color: var(--primary); margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary-glow)); transition: 0.3s;}
+        .game-card:hover .game-icon { transform: scale(1.1) rotate(5deg); }
+
+        @keyframes borderGlow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        body.light-mode .game-card { background: #fff; }
+        body.light-mode .game-card h3 { color: #000; text-shadow: none; }
     </style>
 </head>
 <body>
@@ -435,11 +495,12 @@
                 <div class="tools-container">
                     <button id="theme-toggle" title="تغيير المظهر"><i class="fas fa-moon"></i></button>
                 </div> </div> <div class="nav-links">
-                <a href="#about">عني</a>
-                <a href="#services">خدماتي</a>
-                <a href="#skills">مهاراتي</a>
-                <a href="#projects">أعمالي</a>
-                <a href="#contact">تواصل معي</a>
+                <a href="#about">About Me</a>
+                <a href="#services">Service</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#games">Games</a>
+                <a href="#contact">Contact Me</a>
             </div>
 
         </div>
@@ -516,14 +577,18 @@
                 <input type="text" id="project-search" class="project-search-input" placeholder="ابحث عن مشروع..." onkeyup="filterProjects()">
             </div>
 
-        <div class="projects-grid">
+            <div class="projects-grid">
                 <div class="project-card" data-aos="fade-up" data-aos-delay="100">
                     <h3>Academic Society</h3>
                     <p>ده الموقع الرسمي لمجتمعنا على ديسكورد، حاجة كده منظمة ومحترمة تليق بيكم.</p>
                     <div class="project-stats">
                         <i class="fas fa-eye"></i> <span id="count-academic">0</span> زيارة
                     </div>
-                    <a href="https://academicsociety.github.io/Academic-Society/" class="btn-main" target="_blank" onclick="updateCounter('academic')">شوف المشروع</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://academicsociety.github.io/Academic-Society/" class="btn-main" target="_blank" onclick="updateCounter('academic')">شوف المشروع</a>
+                        <a href="screenshots.html?id=academic" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=academic" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="200">
@@ -532,25 +597,37 @@
                     <div class="project-stats">
                         <i class="fas fa-eye"></i> <span id="count-almaher_web">0</span> زيارة
                     </div>
-                    <a href="https://academicsociety.github.io/Al-maher-/" class="btn-main" target="_blank" onclick="updateCounter('almaher_web')">شوف المشروع</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://academicsociety.github.io/Al-maher-/" class="btn-main" target="_blank" onclick="updateCounter('almaher_web')">شوف المشروع</a>
+                        <a href="screenshots.html?id=almaher_web" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=almaher_web" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
 
                 <div class="project-card" data-tilt data-tilt-max="10" data-aos="fade-up" data-aos-delay="300">
-                    <h3><i class="fas fa-book-quran" style="margin-left: 8px;"></i>برنامج الماهر للقران الكريم للكومبيوتر</h3>
-                    <p>برنامج قران كريم فيه جميع القرائ وتقدر تحمل القران كامل بصوت القارئ المفضل ليك وفيه زي راديو لكل القرائ شغال 24/7 وفيه اذكار بس لسه بتتظبط</p>
+                    <h3><i class="fas fa-book-quran" style="margin-left: 8px;"></i>برنامج الماهر للقران (PC)</h3>
+                    <p>برنامج قران كريم فيه جميع القرائ وراديو 24/7 وتقدر تحمل السور بصوت قارئك المفضل.</p>
                     <div class="project-stats">
                         <i class="fas fa-download"></i> <span id="count-almaher_pc">0</span> تحميل
                     </div>
-                    <a href="https://www.mediafire.com/file/qe2p7ezacji8cyw/Al+Maher.zip/file" class="btn-main" target="_blank" onclick="updateCounter('almaher_pc')">حمل من هنا</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://www.mediafire.com/file/qe2p7ezacji8cyw/Al+Maher.zip/file" class="btn-main" target="_blank" onclick="updateCounter('almaher_pc')">حمل من هنا</a>
+                        <a href="screenshots.html?id=almaher_pc" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=almaher_pc" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-                    <h3><i class="fas fa-book-quran" style="margin-left: 8px;"></i>برنامج الماهر للقران الكريم للموبايل</h3>
-                    <p>برنامج الماهر للقران الكريم للموبايل , فيه كل القرائ وفيه سبحه وفيه توقيت الصلاة , تقدر تحمل القران كامل بصوت القارئ الي انت عاوزه.</p>
+                    <h3><i class="fas fa-book-quran" style="margin-left: 8px;"></i>برنامج الماهر للقران (Mobile)</h3>
+                    <p>برنامج للموبايل فيه كل القرائ وسبحة وتوقيت الصلاة، وتقدر تحمل القرآن كامل.</p>
                     <div class="project-stats">
                         <i class="fas fa-download"></i> <span id="count-almaher_mobile">0</span> تحميل
                     </div>
-                    <a href="https://github.com/AcademicSociety/Al-maher-/releases/download/Al_Maher/Al-Maher.apk" class="btn-main" target="_blank" onclick="updateCounter('almaher_mobile')">حمل من هنا</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://github.com/AcademicSociety/Al-maher-/releases/download/Al_Maher/Al-Maher.apk" class="btn-main" target="_blank" onclick="updateCounter('almaher_mobile')">حمل من هنا</a>
+                        <a href="screenshots.html?id=almaher_mobile" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=almaher_mobile" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
@@ -559,16 +636,24 @@
                     <div class="project-stats">
                         <i class="fas fa-download"></i> <span id="count-temp_cleaner">0</span> تحميل
                     </div>
-                    <a href="https://www.mediafire.com/file/2vg7ne2zycj6ias/Eto_Temp_Cleaner.zip/file" class="btn-main" target="_blank" onclick="updateCounter('temp_cleaner')">حمل من هنا</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://www.mediafire.com/file/2vg7ne2zycj6ias/Eto_Temp_Cleaner.zip/file" class="btn-main" target="_blank" onclick="updateCounter('temp_cleaner')">حمل من هنا</a>
+                        <a href="screenshots.html?id=temp_cleaner" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=temp_cleaner" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
                 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-                    <h3>Calculater</h3>
+                    <h3>Calculator</h3>
                     <p>ده اله حاسبه بسيطه اتمني تعجبكم</p>
                     <div class="project-stats">
                         <i class="fas fa-eye"></i> <span id="count-calculator">0</span> زيارة
                     </div>
-                    <a href="https://engmohammedsaad.github.io/Calculator/" class="btn-main" target="_blank" onclick="updateCounter('calculator')">شوف المشروع</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://engmohammedsaad.github.io/Calculator/" class="btn-main" target="_blank" onclick="updateCounter('calculator')">شوف المشروع</a>
+                        <a href="screenshots.html?id=calculator" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=calculator" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
@@ -577,50 +662,99 @@
                     <div class="project-stats">
                         <i class="fas fa-eye"></i> <span id="count-rosary">0</span> زيارة
                     </div>
-                    <a href="https://engmohammedsaad.github.io/-/" class="btn-main" target="_blank" onclick="updateCounter('rosary')">شوف المشروع</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://engmohammedsaad.github.io/-/" class="btn-main" target="_blank" onclick="updateCounter('rosary')">شوف المشروع</a>
+                        <a href="screenshots.html?id=rosary" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=rosary" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>Pomodoro Timer</h3>
-                    <p>ده تايمر بسيط جدا بتختار الوقت وشكل التايم وتركز ع شغلك ربنا يوفقك</p>
+                    <p>ده تايمر بسيط جدا بتختار الوقت وشكل التايم وتركز ع شغلك.</p>
                     <div class="project-stats">
                         <i class="fas fa-eye"></i> <span id="count-pomodoro">0</span> زيارة
                     </div>
-                    <a href="https://engmohammedsaad.github.io/Timer-Pc-/" class="btn-main" target="_blank" onclick="updateCounter('pomodoro')">شوف المشروع</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://engmohammedsaad.github.io/Timer-Pc-/" class="btn-main" target="_blank" onclick="updateCounter('pomodoro')">شوف المشروع</a>
+                        <a href="screenshots.html?id=pomodoro" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=pomodoro" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
                 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>Eto Manager</h3>
-                    <p>ده برنامج او tool بسيطه زي task manager بس مجمعه فيها حاجات كتيره تختصر وقت وتعب ف ال settings.</p>
+                    <p>برنامج بسيط زي task manager بس مجمعه فيها حاجات كتيره تختصر وقت.</p>
                     <div class="project-stats">
                         <i class="fas fa-download"></i> <span id="count-eto_manager">0</span> تحميل
                     </div>
-                    <a href="https://www.mediafire.com/file/z09by4z5wuzhap1/Eto+Manager.zip/file" class="btn-main" target="_blank" onclick="updateCounter('eto_manager')">حمل من هنا</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://www.mediafire.com/file/z09by4z5wuzhap1/Eto+Manager.zip/file" class="btn-main" target="_blank" onclick="updateCounter('eto_manager')">حمل من هنا</a>
+                        <a href="screenshots.html?id=eto_manager" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=eto_manager" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>Eto Converter</h3>
-                    <p>ده converter تقدر تحول كل الصيغ الي ممكن تيجي ع بالك png , jpg , mp4 to mp3 , والمزيد من الأدوات.</p>
+                    <p>تحويل كل الصيغ png, jpg, mp4 to mp3 والمزيد من الأدوات.</p>
                     <div class="project-stats">
                         <i class="fas fa-download"></i> <span id="count-eto_converter">0</span> تحميل
                     </div>
-                    <a href="https://www.mediafire.com/file/hc1cpeh5787qcuq/Eto_Converter.zip/file" class="btn-main" target="_blank" onclick="updateCounter('eto_converter')">حمل من هنا</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://www.mediafire.com/file/hc1cpeh5787qcuq/Eto_Converter.zip/file" class="btn-main" target="_blank" onclick="updateCounter('eto_converter')">حمل من هنا</a>
+                        <a href="screenshots.html?id=eto_converter" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=eto_converter" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>Etoify</h3>
-                    <p>برنامج موسيقي تقدر تحمل كل الاغاني الي نفسك فيها فيه سيرش محترم وفيه دلوقتي ليركس وتقدر تحمل الاغاني الي نفسك فيها و كمان فيه انك تعمل بلاي ليست خاصه بيك.</p>
+                    <p>برنامج موسيقي لتحميل الأغاني مع دعم للـ lyrics وعمل بلاي ليست خاصة.</p>
                     <div class="project-stats">
                         <i class="fas fa-download"></i> <span id="count-etoify">0</span> تحميل
                     </div>
-                    <a href="https://www.mediafire.com/file/5fwo1fpwaamq5ry/Etoify.zip/file" class="btn-main" target="_blank" onclick="updateCounter('etoify')">حمل من هنا</a>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://www.mediafire.com/file/l39m3kk5os58pqo/Etoify.zip/file" class="btn-main" target="_blank" onclick="updateCounter('etoify')">حمل من هنا</a>
+                        <a href="screenshots.html?id=etoify" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=etoify" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
                 </div>
+
                 <div class="project-card" data-aos="fade-up" data-aos-delay="400">
                     <h3>Coming Soon..</h3>
                     <p>شغالين على مشروع جديد هيفاجئكم، استنوا العظمة اللي جاية قريباً جداً!</p>
                     <button class="btn-main" style="background: transparent; border-color: #555; color: #aaa;" disabled>قريباً</button>
                 </div>
             </div>
+
+            <div id="games">
+                <h2 class="section-title" data-aos="fade-up">Games</h2>
+                
+                <div class="projects-grid">
+                    <div class="game-card" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-car-side game-icon"></i>
+                        <h3>Cars 2d Street Racing</h3>
+                        <p>استمتع بتجربة سباق سيارات ثنائية الأبعاد ممتعة ومثيرة في الشوارع.</p>
+                        <div class="project-stats">
+                            <i class="fas fa-download"></i> <span id="count-game1">0</span> عدد مرات اللعب
+                        </div>
+                        <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                            <a href="https://mohammed-eto.itch.io/cars-2d-eto" class="btn-main" target="_blank" onclick="updateCounter('game1')">العب من هنا</a>
+                            <a href="screenshots.html?id=game1" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                            <a href="requirements.html?id=game1" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                        <h3>Coming Soon..</h3>
+                        <p>شغالين على لعبه جديد هتفاجئكم، استنوا العظمة اللي جاية قريباً جداً!</p>
+                        <button class="btn-main" style="background: transparent; border-color: #555; color: #aaa;" disabled>قريباً</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="contact">
             <h2 class="section-title" data-aos="fade-up">سيبلي رسالة</h2>
             <form id="firebase-contact-form" class="contact-form" data-aos="zoom-in">
@@ -630,8 +764,6 @@
                 <button type="submit" class="btn-main"><i class="fas fa-paper-plane"></i> إرسال الرسالة</button>
             </form>
         </div>
-
-    </div>
 
     <button id="scrollTopBtn" onclick="scrollToTop()">
         <i class="fas fa-chevron-up"></i>

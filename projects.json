@@ -1,0 +1,107 @@
+{
+  "academic": {
+    "name": "Academic Society",
+    "size": "N/A (Web)",
+    "requirements": "متصفح إنترنت (Chrome, Edge)",
+    "screenshots_folder": "Academic Society",
+    "screenshots": ["home_page.png"]
+  },
+  "almaher_web": {
+    "name": "ويب سايت القرآن الكريم",
+    "size": "N/A (Web)",
+    "requirements": "متصفح إنترنت",
+    "screenshots_folder": "Quran_Site",
+    "screenshots": ["home_page.png"]
+  },
+  "almaher_pc": {
+    "name": "برنامج الماهر للقرآن (كمبيوتر)",
+    "size": "118 MB",
+    "requirements": "Windows 10/11",
+    "screenshots_folder": "Quran_app(PC)",
+    "screenshots": ["home_page.png", "اذاعه القران_page.png", "القراء المفضول_page.png"]
+  },
+  "almaher_mobile": {
+    "name": "برنامج الماهر للقرآن (موبايل)",
+    "size": "70 MB",
+    "requirements": "Android 6.0+",
+    "screenshots_folder": "Quran_app(Apk)",
+    "screenshots": ["الرئيسيه.png", "السبحه.png", "صفحه التحميلات.png", "الاذان.png", "الاعدادات.png"]
+  },
+  "temp_cleaner": {
+    "name": "Eto Temp Cleaner",
+    "size": "47.91 MB",
+    "requirements": "Windows 10/11",
+    "screenshots_folder": "Eto Cleaner",
+    "screenshots": ["home page.png"]
+  },
+  "calculator": {
+    "name": "Calculator",
+    "size": "N/A (Web)",
+    "requirements": "متصفح إنترنت",
+    "screenshots_folder": "Calculator",
+    "screenshots": ["home_page.png"]
+  },
+  "rosary": {
+    "name": "سبحة الكترونية",
+    "size": "N/A (Web)",
+    "requirements": "متصفح إنترنت",
+    "screenshots_folder": "السبحه",
+    "screenshots": ["home_page.png"]
+  },
+  "pomodoro": {
+    "name": "Pomodoro Timer",
+    "size": "N/A (Web)",
+    "requirements": "متصفح إنترنت",
+    "screenshots_folder": "Pomodoro",
+    "screenshots": ["home_page.png"]
+  },
+  "eto_manager": {
+    "name": "Eto Manager",
+    "size": "64.48 MB",
+    "requirements": "Windows 10/11, .NET Framework 4.7.2",
+    "screenshots_folder": "Eto Manager",
+    "screenshots": [
+      "home_page.png", 
+      "game_booster.png", 
+      "keyboard_settings.png", 
+      "mouse_settings.png", 
+      "notes_system.png", 
+      "smart_cleaner.png", 
+      "startup_apps.png", 
+      "System_Control_1.png", 
+      "System_Control_2.png", 
+      "app_manager.png", 
+      "appearance_settings .png", 
+      "disk&format_partitions.png", 
+      "disktop_control.png"
+    ]
+  },
+  "eto_converter": {
+    "name": "Eto Converter",
+    "size": "62.73 MB",
+    "requirements": "Windows 10+, 2GB RAM",
+    "screenshots_folder": "Eto Converter",
+    "screenshots": [
+      "Main_page.png", 
+      "Image_converter_page.png", 
+      "Extract_Audio_from_mp3_file_page.png", 
+      "Conpress_video_page.png", 
+      "Convert_audio_to_video_page.png", 
+      "Convert_Video_to_Gif.png"
+    ]
+  },
+  "etoify": {
+    "name": "Etoify Music Player",
+    "size": "218.14 MB",
+    "requirements": "Windows 10+, 4GB RAM",
+    "screenshots_folder": "Etoify",
+    "screenshots": ["home_page.png", "liked_song_page.png", "lyrics.png", "download_page.png"]
+  },
+  "game1": {
+    "name": "Cars 2d Street Racing",
+    "size": "N/A (Web)",
+    "requirements": "متصفح إنترنت",
+    "screenshots_folder": "Cars 2d",
+    "screenshots": ["home_page.png", "shop_page.png", "settings_page.png", "leaderboard_page.png", "dialy_reward_page.png"]
+  }
+}
