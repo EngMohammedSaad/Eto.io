@@ -20,7 +20,6 @@
             --text-main: #ffffff;
         }
 
-        /* Custom Scrollbar */
         ::selection {
             background: var(--primary);
             color: #000;
@@ -100,7 +99,6 @@
         .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 600; transition: 0.3s; cursor: none; }
         .nav-links a:hover { color: var(--primary); }
 
-        /* Tools & Custom Language Selector */
         .tools-container { display: flex; align-items: center; gap: 15px; }
 
         #theme-toggle {
@@ -116,7 +114,6 @@
 
 
 
-        /* Custom Dropdown Lang */
         .lang-wrapper { position: relative; }
         .lang-btn {
             background: var(--card-bg);
@@ -175,7 +172,6 @@
         }
         .lang-list li:hover { background: #222; color: var(--primary); }
 
-        /* Header Animation */
         header {
             height: 100vh;
             display: flex;
@@ -212,7 +208,6 @@
             border-radius: 5px;
         }
 
-        /* About Me Section */
         .about-section {
             background: var(--card-bg); padding: 40px; border-radius: 20px; border-right: 4px solid var(--primary);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); margin-bottom: 80px; line-height: 1.8; font-size: 1.15em;
@@ -222,7 +217,7 @@
         .about-content { position: relative; z-index: 1; }
         .highlight { color: var(--primary); font-weight: bold; }
 
-        /* Services & Projects Grid */
+
         .services-grid, .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 80px; }
         
         .service-card {
@@ -239,7 +234,6 @@
         .service-card i { font-size: 3em; color: var(--primary); margin-bottom: 15px; transform: translateZ(20px); }
         .service-card p { color: var(--text-gray); }
 
-        /* Search Bar for Projects */
         .project-search-container {
             text-align: center;
             margin-bottom: 40px;
@@ -264,7 +258,7 @@
             box-shadow: 0 0 15px var(--primary-glow);
         }
 
-        /* Project Cards (No 3D, Clean Hover Animation) */
+
         .project-card {
             background: var(--card-bg);
             padding: 30px;
@@ -287,7 +281,6 @@
         .project-card h3 { color: var(--primary); margin-top: 0; font-size: 1.5em; transition: 0.3s; }
         .project-card p { color: var(--text-gray); flex-grow: 1; }
 
-        /* Skills Section */
         .skills-container { margin-bottom: 80px; background: var(--card-bg); padding: 40px; border-radius: 20px; }
         .skill-box { margin-bottom: 20px; }
         .skill-info { display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: bold; color: var(--text-main); }
@@ -301,7 +294,6 @@
         }
         .btn-main:hover { background: transparent; color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
 
-        /* Contact Section */
         .contact-form { background: var(--card-bg); padding: 40px; border-radius: 20px; display: flex; flex-direction: column; gap: 15px; }
         .contact-form input, .contact-form textarea {
             width: 100%; padding: 15px; background: #111; border: 1px solid #333; border-radius: 8px;
@@ -310,7 +302,6 @@
         .contact-form input:focus, .contact-form textarea:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
         .contact-form textarea { resize: vertical; min-height: 150px; }
 
-        /* Footer / Social Links */
         footer { background: var(--bg-dark); padding: 60px 20px 30px; text-align: center; border-top: 1px solid #222; }
         .social-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; max-width: 800px; margin: 30px auto; }
         .social-btn {
@@ -332,7 +323,6 @@
 
         .social-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
 
-        /* Scroll to Top Button */
         #scrollTopBtn {
             position: fixed; bottom: 30px; left: 30px; background: var(--primary); color: #000; width: 50px; height: 50px;
             border-radius: 50%; border: none; font-size: 1.5em; cursor: none; display: none; align-items: center; justify-content: center;
@@ -340,7 +330,6 @@
         }
         #scrollTopBtn:hover { transform: scale(1.1); }
 
-        /* Toast Notification */
         #toast {
             position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--primary);
             color: #000; padding: 12px 25px; border-radius: 30px; font-weight: bold; box-shadow: 0 0 20px var(--primary-glow);
@@ -383,7 +372,6 @@
             color: var(--primary) !important;
         }
 
-        /* Loader Animation */
         #loader {
             position: fixed; inset: 0; background: var(--bg-dark); display: flex; flex-direction: column;
             justify-content: center; align-items: center; z-index: 9999; transition: 0.5s;
@@ -407,7 +395,6 @@
             }
             header h1 { font-size: 3em; } /* تصغير العنوان شوية للموبايل */
         }
-/* Games Section Cards */
         .game-card {
             background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
             padding: 30px;
@@ -522,7 +509,7 @@
             <section class="about-section" data-aos="fade-up" data-aos-delay="200">
                 <div class="about-content">
                     <p>أنا <strong>محمد سعد</strong>، مبرمج عندي 17 سنة. طول عمري بحاول أعمل حاجة ليها قيمة، ولحد دلوقتي لسه بعافر وبطور من نفسي عشان أوصل لحلمي.</p>
-                    <p>انا تالته ثانوي <span class="highlight">"علمي رياضة لغات"</span>، وشغفي الأكبر هو كتابة الكود.. بحب جداً أبرمج (ألعاب، مواقع، برامج، وأدوات Tools) بتسهل علينا .</p>
+                    <p>انا تالته ثانوي <span class="highlight">"ETO"</span>، وشغفي الأكبر هو كتابة الكود.. بحب جداً أبرمج (ألعاب، مواقع، برامج، وأدوات Tools) بتسهل علينا .</p>
                     <p>عندي سيرفر على ديسكورد بنتجمع فيه وبنفيد بعض، بلعب وببرمج وبشارك فيه كل حاجة.. أتمنى تنورني وتكون جزء من مجتمعنا!</p>
                     <a href="https://discord.gg/JsRDCnFjXZ" class="btn-main" target="_blank">
                         <i class="fab fa-discord"></i> ادخل السيرفر من هنا
@@ -537,7 +524,7 @@
                 <div class="service-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-aos="zoom-in" data-aos-delay="100">
                     <i class="fas fa-code"></i>
                     <h3>تطوير المواقع</h3>
-                    <p>ببني مواقع وتطبيقات ويب سريعة، متجاوبة، وتصميمها عصري وجذاب.</p>
+                    <p>ببني مواقع وتطبيقات ويب سريعة.</p>
                 </div>
                 <div class="service-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-aos="zoom-in" data-aos-delay="200">
                     <i class="fas fa-robot"></i>
@@ -796,7 +783,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
     <script>
-        // إعدادات مشروعك
+
         const firebaseConfig = {
             apiKey: "AIzaSyCcW5saR6ZTAgQhOIO-bV-qtKYtUwzFKd0",
             authDomain: "eto-portfolio-a1057.firebaseapp.com",
@@ -808,7 +795,6 @@
             measurementId: "G-4EY0ML0VSW"
         };
 
-        // تشغيل Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
     </script>
@@ -825,7 +811,6 @@
             let scrolled = (winScroll / height) * 100;
             document.getElementById("scroll-progress").style.width = scrolled + "%";
             
-            // Scroll To Top Button logic
             let btn = document.getElementById("scrollTopBtn");
             if (winScroll > 300) btn.style.display = "flex";
             else btn.style.display = "none";
@@ -897,7 +882,7 @@
         const contactForm = document.getElementById('firebase-contact-form');
         if(contactForm) {
             contactForm.addEventListener('submit', (e) => {
-                e.preventDefault(); // عشان الصفحة ماتعملش ريفريش
+                e.preventDefault(); 
                 
                 const name = document.getElementById('sender-name').value;
                 const email = document.getElementById('sender-email').value;
@@ -910,16 +895,13 @@
                     message: msg          
                 };
 
-                // إرسال الإيميل (حط الـ Service ID والـ Template ID بتوعك هنا)
                 emailjs.send("service_9dgtdce", "template_r9k0ycf", templateParams)
                 .then(() => {
-                    // إظهار إشعار النجاح باستخدام الـ Toast بتاعك
                     const toast = document.getElementById('toast');
                     document.getElementById('toast-msg').innerHTML = 'رسالتك وصلت يا هندسة! هرد عليك قريب.';
                     toast.classList.add('show');
                     setTimeout(() => toast.classList.remove('show'), 4000);
                     
-                    // تفريغ الفورم بعد الإرسال
                     contactForm.reset();
                 }).catch((error) => {
                     alert('حصلت مشكلة في الإرسال، جرب تاني.');
@@ -938,7 +920,6 @@
             }).catch(err => console.error('فشل النسخ: ', err));
         }
 
-        // Project Search Logic
         function filterProjects() {
             let input = document.getElementById('project-search').value.toLowerCase();
             let cards = document.querySelectorAll('.project-card');
@@ -948,24 +929,21 @@
                 let desc = card.querySelector('p').innerText.toLowerCase();
                 
                 if (title.includes(input) || desc.includes(input)) {
-                    card.style.display = "flex"; // خليناها flex عشان الكروت تفضل متناسقة
+                    card.style.display = "flex"; 
                 } else {
                     card.style.display = "none";
                 }
             });
         }
 
-        // Initialize AOS
         AOS.init({ duration: 800, once: true, offset: 100 });
 
-        // Loader
         window.onload = () => {
             const loader = document.getElementById('loader');
             loader.style.opacity = '0';
             setTimeout(() => { loader.style.display = 'none'; }, 500);
         };
 
-        // Auto Typing Effect
         const texts = ["Software Developer", "Student", "Web Developer", "Discord Bot Maker", "Gamer"];
         let count = 0, index = 0, currentText = '', letter = '';
         (function type() {
