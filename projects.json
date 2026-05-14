@@ -3,7 +3,7 @@
     "name": "Academic Society",
     "size": "N/A (Web)",
     "requirements": "متصفح إنترنت (Chrome, Edge)",
-    "screenshots_folder": "Academic Society",
+    "screenshots_folder": "Academic_Society",
     "screenshots": ["home_page.png"]
   },
   "almaher_web": {
@@ -18,21 +18,21 @@
     "size": "118 MB",
     "requirements": "Windows 10/11",
     "screenshots_folder": "Quran_app(PC)",
-    "screenshots": ["home_page.png", "اذاعه القران_page.png", "القراء المفضول_page.png"]
+    "screenshots": ["home_page.png", "Radio.png", "fav_readers.png"]
   },
   "almaher_mobile": {
     "name": "برنامج الماهر للقرآن (موبايل)",
     "size": "70 MB",
     "requirements": "Android 6.0+",
     "screenshots_folder": "Quran_app(Apk)",
-    "screenshots": ["الرئيسيه.png", "السبحه.png", "صفحه التحميلات.png", "الاذان.png", "الاعدادات.png"]
+    "screenshots": ["home.png", "rosary.png", "download_page.png", "azan.png", "settings.png"]
   },
   "temp_cleaner": {
     "name": "Eto Temp Cleaner",
     "size": "47.91 MB",
     "requirements": "Windows 10/11",
-    "screenshots_folder": "Eto Cleaner",
-    "screenshots": ["home page.png"]
+    "screenshots_folder": "Eto_Cleaner",
+    "screenshots": ["home_page.png"]
   },
   "calculator": {
     "name": "Calculator",
@@ -45,7 +45,7 @@
     "name": "سبحة الكترونية",
     "size": "N/A (Web)",
     "requirements": "متصفح إنترنت",
-    "screenshots_folder": "السبحه",
+    "screenshots_folder": "rosary",
     "screenshots": ["home_page.png"]
   },
   "pomodoro": {
@@ -59,7 +59,7 @@
     "name": "Eto Manager",
     "size": "64.48 MB",
     "requirements": "Windows 10/11, .NET Framework 4.7.2",
-    "screenshots_folder": "Eto Manager",
+    "screenshots_folder": "Eto_Manager",
     "screenshots": [
       "home_page.png", 
       "game_booster.png", 
@@ -80,7 +80,7 @@
     "name": "Eto Converter",
     "size": "62.73 MB",
     "requirements": "Windows 10+, 2GB RAM",
-    "screenshots_folder": "Eto Converter",
+    "screenshots_folder": "Eto_Converter",
     "screenshots": [
       "Main_page.png", 
       "Image_converter_page.png", 
@@ -101,7 +101,7 @@
     "name": "Cars 2d Street Racing",
     "size": "N/A (Web)",
     "requirements": "متصفح إنترنت",
-    "screenshots_folder": "Cars 2d",
+    "screenshots_folder": "Cars_2d",
     "screenshots": ["home_page.png", "shop_page.png", "settings_page.png", "leaderboard_page.png", "dialy_reward_page.png"]
   }
 }

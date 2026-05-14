@@ -454,6 +454,50 @@
 
         body.light-mode .game-card { background: #fff; }
         body.light-mode .game-card h3 { color: #000; text-shadow: none; }
+
+        .about-card {
+            display: flex;
+            flex-direction: row-reverse; 
+            align-items: center;
+            background: var(--card-bg); 
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            gap: 40px;
+            margin-top: 20px;
+            border: 1px solid #222;
+        }
+
+        .about-image img {
+            width: 280px; 
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--primary-glow);
+            object-fit: cover;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--text-main); 
+        }
+
+        @media (max-width: 768px) {
+            .about-card {
+                flex-direction: column; 
+                text-align: center;
+                padding: 20px;
+            }
+            .about-image img {
+                width: 100%;
+                max-width: 250px;
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -478,7 +522,7 @@
         <div class="nav-container">
             
             <div class="nav-right">
-                <a href="#" class="logo">Eto.</a>
+                <a href="#" class="logo">Eto</a>
                 <div class="tools-container">
                     <button id="theme-toggle" title="تغيير المظهر"><i class="fas fa-moon"></i></button>
                 </div> </div> <div class="nav-links">
@@ -507,13 +551,18 @@
         <div id="about">
             <h2 class="section-title" data-aos="fade-up">مين أنا؟</h2>
             <section class="about-section" data-aos="fade-up" data-aos-delay="200">
-                <div class="about-content">
-                    <p>أنا <strong>محمد سعد</strong>، مبرمج عندي 17 سنة. طول عمري بحاول أعمل حاجة ليها قيمة، ولحد دلوقتي لسه بعافر وبطور من نفسي عشان أوصل لحلمي.</p>
-                    <p>انا تالته ثانوي <span class="highlight">"ETO"</span>، وشغفي الأكبر هو كتابة الكود.. بحب جداً أبرمج (ألعاب، مواقع، برامج، وأدوات Tools) بتسهل علينا .</p>
-                    <p>عندي سيرفر على ديسكورد بنتجمع فيه وبنفيد بعض، بلعب وببرمج وبشارك فيه كل حاجة.. أتمنى تنورني وتكون جزء من مجتمعنا!</p>
-                    <a href="https://discord.gg/JsRDCnFjXZ" class="btn-main" target="_blank">
-                        <i class="fab fa-discord"></i> ادخل السيرفر من هنا
-                    </a>
+                <div class="about-card">
+                    <div class="about-image">
+                        <img src="pics/dev.png" alt="Mohammed Eto">
+                    </div>
+                    <div class="about-content">
+                        <p>أنا <strong>محمد سعد</strong>، مطور برمجيات عندي 17 سنة. دايماً بسعى أعمل مشاريع ليها قيمة وأطور من مهاراتي عشان أوصل لأهدافي في مجال التكنولوجيا.</p>
+                        <p>شغفي الأكبر هو كتابة الكود وبناء الحلول. بحب جداً أبرمج (ألعاب، مواقع، برامج، وأدوات Tools) بتسهل علينا حياتنا وشغلنا.</p>
+                        <p>أسست مجتمع على ديسكورد بنتجمع فيه وبنفيد بعض كـ مبرمجين وGamers، بنشارك خبراتنا وبنلعب مع بعض.. أتمنى تنورني وتكون جزء من مجتمعنا!</p>
+                        <a href="https://discord.gg/JsRDCnFjXZ" class="btn-main" target="_blank">
+                            <i class="fab fa-discord"></i> ادخل السيرفر من هنا
+                        </a>
+                    </div>
                 </div>
             </section>
         </div>
@@ -523,18 +572,28 @@
             <div class="services-grid">
                 <div class="service-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-aos="zoom-in" data-aos-delay="100">
                     <i class="fas fa-code"></i>
-                    <h3>تطوير المواقع</h3>
-                    <p>ببني مواقع وتطبيقات ويب سريعة.</p>
+                    <h3>Web Apps</h3>
+                    <p>بعمل مواقع وتطبيقات ويب سريعة.</p>
                 </div>
                 <div class="service-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-aos="zoom-in" data-aos-delay="200">
                     <i class="fas fa-robot"></i>
-                    <h3>بوتات ديسكورد</h3>
-                    <p>برمجة بوتات ديسكورد مخصصة لإدارة السيرفرات وعمل أنظمة حماية وألعاب.</p>
+                    <h3>Bots</h3>
+                    <p>برمجة بوتات ديسكورد , واتساب , تلجرام , انستغرام . الخ....</p>
                 </div>
                 <div class="service-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-aos="zoom-in" data-aos-delay="300">
                     <i class="fas fa-tools"></i>
-                    <h3>أدوات وبرامج</h3>
-                    <p>تطوير برامج صغيرة (Tools) بتسهل المهام اليومية على أنظمة التشغيل.</p>
+                    <h3>Tools</h3>
+                    <p>بعمل شويه ادوات وشويه برامج تسهل علينا الاستخدام اليومي</p>
+                </div>
+                <div class="service-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-window-maximize"></i>
+                    <h3>Programms</h3>
+                    <p>بعمل شويه برامج  تسهل علينا الاستخدام اليومي</p>
+                </div>
+                <div class="service-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Games (New)</h3>
+                    <p>بعمل العاب ممتعه وافكارها Creative</p>
                 </div>
             </div>
         </div>

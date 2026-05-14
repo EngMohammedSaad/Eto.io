@@ -76,8 +76,7 @@
                         
                         if(project.screenshots && project.screenshots.length > 0) {
                             project.screenshots.forEach(imgName => {
-
-                                const imgPath = `screen shots/${project.screenshots_folder}/${imgName}`;
+                                const imgPath = `screenshots/${project.screenshots_folder}/${imgName}`;
                                 const cleanTitle = imgName.split('.')[0]; 
                                 
                                 gallery.innerHTML += `
