@@ -74,12 +74,10 @@
                         document.getElementById('project-title').innerText = "صور: " + project.name;
                         const gallery = document.getElementById('gallery-container');
                         
-                        // بنلف على مصفوفة أسماء الصور اللي حطيناها في الـ JSON
                         if(project.screenshots && project.screenshots.length > 0) {
                             project.screenshots.forEach(imgName => {
-                                // مسار الصورة
+
                                 const imgPath = `screen shots/${project.screenshots_folder}/${imgName}`;
-                                // بنشيل الامتداد (.png أو .jpg) عشان نعرض الاسم نضيف
                                 const cleanTitle = imgName.split('.')[0]; 
                                 
                                 gallery.innerHTML += `
