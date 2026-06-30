@@ -90,6 +90,14 @@
       "Convert_Video_to_Gif.png"
     ]
   },
+  "eto_downloader_manager": {
+    "name": "Eto Downloader Manager",
+    "size": "500 MB",
+    "requirements": "2GB RAM",
+    "download_url": "https://github.com/EngMohammedSaad/Eto.io/releases/download/ETO/Eto_Downloader.Manager.zip",
+    "screenshots_folder": "Eto_Downloader_Manager",
+    "screenshots": []
+  },
   "etoify": {
     "name": "Etoify Music Player",
     "size": "218.14 MB",

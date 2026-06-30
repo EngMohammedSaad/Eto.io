@@ -518,20 +518,80 @@
         <div class="spinner"></div>
     </div>
 
+    <style>
+        /* تنسيق زرار الـ Eto OS عشان يبقى بريميوم ومتناسق */
+        .eto-os-nav-btn {
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: rgba(0, 255, 136, 0.1); 
+            border: 1px solid var(--primary); 
+            color: var(--primary); 
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            transition: 0.3s all ease;
+            cursor: none;
+            box-sizing: border-box;
+        }
+        .eto-os-nav-btn:hover {
+            background: var(--primary);
+            color: #000 !important; /* عشان يفضل أسود وميتأثرش بلون اللينكات */
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        /* تظبيط زرار المظهر عشان يبقوا نفس الطول والعرض بالظبط */
+        #theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border-radius: 8px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            cursor: none;
+            transition: 0.3s all ease;
+            box-sizing: border-box;
+        }
+        #theme-toggle:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+    </style>
+
     <nav>
-        <div class="nav-container">
+        <div class="nav-container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             
-            <div class="nav-right">
+            <div class="nav-left">
+                <div class="tools-container" style="display: flex; align-items: center; gap: 10px;">
+                    <a href="eto-os.html" class="eto-os-nav-btn" title="Eto OS">
+                        <i class="fas fa-desktop"></i>
+                    </a>
+                    
+                    <button id="theme-toggle" title="تغيير المظهر">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="nav-right" style="display: flex; align-items: center; gap: 20px;">
                 <a href="#" class="logo">Eto</a>
-                <div class="tools-container">
-                    <button id="theme-toggle" title="تغيير المظهر"><i class="fas fa-moon"></i></button>
-                </div> </div> <div class="nav-links">
-                <a href="#about">About Me</a>
-                <a href="#services">Service</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-                <a href="#games">Games</a>
-                <a href="#contact">Contact Me</a>
+                <div class="nav-links">
+                    <a href="#about">About Me</a>
+                    <a href="#services">Service</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#games">Games</a>
+                    <a href="#contact">Contact Me</a>
+                </div>
             </div>
 
         </div>
@@ -741,6 +801,8 @@
                     </div>
                 </div>
 
+
+
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <h3>Eto Converter</h3>
                     <p>تحويل كل الصيغ png, jpg, mp4 to mp3 والمزيد من الأدوات.</p>
@@ -751,6 +813,19 @@
                         <a href="https://www.mediafire.com/file/hc1cpeh5787qcuq/Eto_Converter.zip/file" class="btn-main" target="_blank" onclick="updateCounter('eto_converter')">حمل من هنا</a>
                         <a href="screenshots.html?id=eto_converter" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
                         <a href="requirements.html?id=eto_converter" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Eto Downloader Manager</h3>
+                    <p>برنامج متكامل لإدارة وتحميل الملفات بسرعة وكفاءة عالية.</p>
+                    <div class="project-stats">
+                        <i class="fas fa-download"></i> <span id="count-eto_downloader_manager">0</span> تحميل
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://github.com/EngMohammedSaad/Eto.io/releases/download/ETO/Eto_Downloader.Manager.zip" class="btn-main" target="_blank" onclick="updateCounter('eto_downloader_manager')">حمل من هنا</a>
+                        <a href="screenshots.html?id=eto_downloader_manager" class="btn-main" style="background: transparent; border-color: var(--primary); color: var(--text-main);"><i class="fas fa-image"></i></a>
+                        <a href="requirements.html?id=eto_downloader_manager" class="btn-main" style="background: transparent; border-color: #ff9800; color: var(--text-main);"><i class="fas fa-cogs"></i></a>
                     </div>
                 </div>
 
