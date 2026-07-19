@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eto-OS | Developer Environment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --os-primary: #00ff88;
+            --os-bg: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            --window-bg: rgba(15, 15, 15, 0.85);
+            --taskbar-bg: rgba(10, 10, 10, 0.95);
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Fira Code', monospace;
+            background: var(--os-bg);
+            color: #fff;
+            height: 100vh;
+            user-select: none;
+        }
+
+        #boot-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--os-primary);
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .boot-loader {
+            width: 50px; height: 50px;
+            border: 3px solid rgba(0, 255, 136, 0.3);
+            border-top-color: var(--os-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-top: 20px;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .desktop {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: calc(100vh - 50px);
+            align-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .icon {
+            width: 80px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            border-radius: 8px;
+            padding: 10px 5px;
+        }
+
+        .icon:hover { 
+            background: rgba(255, 255, 255, 0.1); 
+            transform: scale(1.05);
+        }
+        .icon i { font-size: 2.5em; color: var(--os-primary); margin-bottom: 8px; text-shadow: 0 0 10px rgba(0,255,136,0.5); }
+        .icon span { font-size: 0.8em; display: block; text-shadow: 1px 1px 2px #000; }
+
+        .taskbar {
+            position: absolute; bottom: 0; width: 100%; height: 50px;
+            background: var(--taskbar-bg); backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-sizing: border-box;
+            z-index: 9999;
+        }
+
+        .start-btn {
+            background: var(--os-primary); color: #000; padding: 8px 15px;
+            border-radius: 5px; font-weight: bold; cursor: pointer;
+            transition: 0.2s;
+        }
+        .start-btn:hover { background: #00cc6a; box-shadow: 0 0 10px rgba(0,255,136,0.5); }
+
+        .taskbar-apps {
+            display: flex;
+            gap: 10px;
+            flex-grow: 1;
+            margin: 0 20px;
+            overflow-x: auto;
+        }
+
+        .taskbar-app-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            white-space: nowrap;
+            max-width: 180px;
+        }
+
+        .taskbar-app-item:hover, .taskbar-app-item.active {
+            background: rgba(0, 255, 136, 0.15);
+            box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+        }
+
+        .taskbar-close-btn {
+            margin-left: auto;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #ccc;
+            transition: 0.2s;
+        }
+        
+        .taskbar-close-btn:hover {
+            color: #ff5f56;
+            background: rgba(255, 95, 86, 0.2);
+        }
+
+        .clock { font-size: 0.9em; color: #aaa; }
+
+        .window {
+            position: absolute; top: 100px; left: 150px;
+            width: 600px; height: 400px;
+            background: var(--window-bg); backdrop-filter: blur(15px);
+            border: 1px solid #333; border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            display: none; flex-direction: column; overflow: hidden;
+            z-index: 100;
+            transition: transform 0.1s;
+        }
+
+        .window-header {
+            background: #222; padding: 10px; display: flex;
+            justify-content: space-between; align-items: center;
+            cursor: grab; border-bottom: 1px solid #444;
+        }
+        
+        .window-header:active { cursor: grabbing; }
+        .window-title { font-size: 0.9em; display: flex; align-items: center; gap: 8px; }
+        
+        .window-controls span {
+            display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+            margin-left: 8px; cursor: pointer; transition: 0.2s;
+        }
+        .close-btn { background: #ff5f56; }
+        .close-btn:hover { box-shadow: 0 0 10px #ff5f56; transform: scale(1.1); }
+        .min-btn { background: #ffbd2e; }
+        .min-btn:hover { box-shadow: 0 0 10px #ffbd2e; transform: scale(1.1); }
+        .max-btn { background: #27c93f; }
+        .max-btn:hover { box-shadow: 0 0 10px #27c93f; transform: scale(1.1); }
+
+        .window-content {
+            padding: 20px; flex-grow: 1; overflow-y: auto;
+        }
+
+        .explorer-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px;
+        }
+        .file-item {
+            text-align: center; cursor: pointer; padding: 10px; border-radius: 8px; transition: 0.2s;
+        }
+        .file-item:hover { background: rgba(0,255,136,0.1); transform: translateY(-2px); }
+        .file-item i { font-size: 2.5em; color: #b0b0b0; margin-bottom: 5px; }
+        .file-item.exe i { color: #ff5f56; }
+        .file-item.apk i { color: #27c93f; }
+        .file-item span { font-size: 0.75em; display: block; word-wrap: break-word; }
+
+        #terminal-content { font-family: 'Fira Code', monospace; font-size: 0.9em; color: #00ff88; }
+        .terminal-input-line { display: flex; gap: 10px; margin-top: 10px; }
+        .terminal-input-line input {
+            background: transparent; border: none; color: #fff; font-family: inherit;
+            outline: none; flex-grow: 1; font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="boot-screen">
+        <h2>Eto-OS</h2>
+        <p>Loading Kernel...</p>
+        <div class="boot-loader"></div>
+    </div>
+
+    <div class="desktop">
+        <div class="icon" ondblclick="openWindow('projects-window')">
+            <i class="fas fa-folder-open" style="color: #ffd700;"></i>
+            <span>My_Projects</span>
+        </div>
+        <div class="icon" ondblclick="openWindow('terminal-window')">
+            <i class="fas fa-terminal"></i>
+            <span>CMD</span>
+        </div>
+        <div class="icon" ondblclick="openWindow('browser-window')">
+            <i class="fab fa-google" style="color: #4285F4; text-shadow: 0 0 10px rgba(66, 133, 244, 0.5);"></i>
+            <span>Google</span>
+        </div>
+        <div class="icon" ondblclick="openWindow('edu-window')">
+            <i class="fas fa-graduation-cap" style="color: #2563eb; text-shadow: 0 0 10px rgba(37, 99, 235, 0.5);"></i>
+            <span>Eto Edu</span>
+        </div>
+        <div class="icon" ondblclick="openWindow('games-window')">
+            <i class="fas fa-gamepad" style="color: #ffbd2e; text-shadow: 0 0 10px rgba(255, 189, 46, 0.5);"></i>
+            <span>Eto Games</span>
+        </div>
+
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <div class="icon">
+                <i class="fas fa-sign-out-alt" style="color: #ff5f56;"></i>
+                <span>Exit OS</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="window" id="projects-window">
+        <div class="window-header">
+            <div class="window-title"><i class="fas fa-folder-open"></i> C:\Users\Eto\Projects</div>
+            <div class="window-controls">
+                <span class="min-btn" onclick="minimizeWindow('projects-window')"></span>
+                <span class="max-btn" onclick="maximizeWindow('projects-window')"></span>
+                <span class="close-btn" onclick="closeWindow('projects-window')"></span>
+            </div>
+        </div>
+        <div class="window-content explorer-grid" id="projects-container">
+            Loading files...
+        </div>
+    </div>
+
+    <div class="window" id="terminal-window" style="top: 150px; left: 200px; width: 500px; height: 350px; background: rgba(0,0,0,0.9);">
+        <div class="window-header">
+            <div class="window-title"><i class="fas fa-terminal"></i> Administrator: Command Prompt</div>
+            <div class="window-controls">
+                <span class="min-btn" onclick="minimizeWindow('terminal-window')"></span>
+                <span class="max-btn" onclick="maximizeWindow('terminal-window')"></span>
+                <span class="close-btn" onclick="closeWindow('terminal-window')"></span>
+            </div>
+        </div>
+        <div class="window-content" id="terminal-content">
+            <div>Microsoft Windows [Version 10.0.19045.Eto]</div>
+            <div>(c) Mohammed Eto. All rights reserved.</div>
+            <div class="terminal-input-line">
+                <span>C:\Users\Eto></span>
+                <input type="text" id="cmd-input" autocomplete="off" autofocus>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="browser-window" style="top: 120px; left: 250px; width: 700px; height: 500px; background: #fff; color: #000;">
+        <div class="window-header" style="background: #f1f3f4; border-bottom: 1px solid #dadce0; color: #000;">
+            <div class="window-title" style="color: #3c4043; font-family: 'Segoe UI', sans-serif;"><i class="fab fa-chrome" style="color: #4285F4;"></i> Eto Browser - New Tab</div>
+            <div class="window-controls">
+                <span class="min-btn" onclick="minimizeWindow('browser-window')"></span>
+                <span class="max-btn" onclick="maximizeWindow('browser-window')"></span>
+                <span class="close-btn" onclick="closeWindow('browser-window')"></span>
+            </div>
+        </div>
+        <div class="window-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; height: 100%;">
+            <div style="font-size: 5em; font-weight: bold; margin-bottom: 25px; font-family: 'Segoe UI', sans-serif; letter-spacing: -2px;">
+                <span style="color: #4285F4;">G</span><span style="color: #EA4335;">o</span><span style="color: #FBBC05;">o</span><span style="color: #4285F4;">g</span><span style="color: #34A853;">l</span><span style="color: #EA4335;">e</span>
+            </div>
+            
+            <div style="display: flex; width: 80%; max-width: 550px; border: 1px solid #dfe1e5; border-radius: 24px; padding: 12px 20px; box-shadow: 0 1px 6px rgba(32,33,36,.28); align-items: center;">
+                <i class="fas fa-search" style="color: #9aa0a6; margin-right: 15px; font-size: 1.1em;"></i>
+                <input type="text" id="browser-search-input" style="flex-grow: 1; border: none; outline: none; font-size: 1.1em; color: #000; background: transparent;" placeholder="Search Google or type a URL" onkeydown="handleGoogleSearch(event)">
+                <i class="fas fa-microphone" style="color: #4285F4; margin-left: 15px; cursor: pointer;"></i>
+            </div>
+
+            <div style="margin-top: 30px; display: flex; gap: 12px;">
+                <button onclick="performGoogleSearch()" style="background: #f8f9fa; border: 1px solid #f8f9fa; border-radius: 4px; color: #3c4043; font-size: 14px; padding: 0 16px; height: 36px; cursor: pointer;">Google Search</button>
+                <button style="background: #f8f9fa; border: 1px solid #f8f9fa; border-radius: 4px; color: #3c4043; font-size: 14px; padding: 0 16px; height: 36px; cursor: pointer;">I'm Feeling Lucky</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="edu-window" style="top: 80px; left: 180px; width: 900px; height: 600px; background: #fff; color: #000;">
+        <div class="window-header" style="background: #2563eb; border-bottom: 1px solid #1e40af;">
+            <div class="window-title" style="color: #ffffff; font-family: 'Segoe UI', sans-serif;"><i class="fas fa-graduation-cap" style="color: #ffffff;"></i> Eto Host Edu</div>
+            <div class="window-controls">
+                <span class="min-btn" onclick="minimizeWindow('edu-window')"></span>
+                <span class="max-btn" onclick="maximizeWindow('edu-window')"></span>
+                <span class="close-btn" onclick="closeWindow('edu-window')"></span>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 0; overflow: hidden;">
+            <iframe src="sec.html" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
+        </div>
+    </div>
+
+    <div class="window" id="games-window" style="top: 50px; left: 100px; width: 1000px; height: 650px; background: #0B1D2E; color: #fff;">
+        <div class="window-header" style="background: #152B43; border-bottom: 1px solid #D4AF37;">
+            <div class="window-title" style="color: #D4AF37;"><i class="fas fa-gamepad"></i> Eto Games - Snake 🐍</div>
+            <div class="window-controls">
+                <span class="min-btn" onclick="minimizeWindow('games-window')"></span>
+                <span class="max-btn" onclick="maximizeWindow('games-window')"></span>
+                <span class="close-btn" onclick="closeWindow('games-window')"></span>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 0; overflow: hidden;">
+            <iframe src="games/snake.html" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
+        </div>
+    </div>
+
+    <div class="window" id="notepad-window" style="top: 120px; left: 180px; width: 450px; height: 350px; background: #fff; color: #000;">
+        <div class="window-header" style="background: #eee; border-bottom: 1px solid #ccc;">
+            <div class="window-title" style="color: #000;"><i class="fas fa-file-alt" style="color: #4da6ff;"></i> Notepad - req.txt</div>
+            <div class="window-controls">
+                <span class="min-btn" onclick="minimizeWindow('notepad-window')"></span>
+                <span class="max-btn" onclick="maximizeWindow('notepad-window')"></span>
+                <span class="close-btn" onclick="closeWindow('notepad-window')"></span>
+            </div>
+        </div>
+        <div class="window-content" id="notepad-content" style="padding: 15px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 15px; line-height: 1.6;">
+        </div>
+    </div>
+
+    <div class="window" id="image-window" style="top: 140px; left: 220px; width: 550px; height: 450px; background: rgba(15, 15, 15, 0.95);">
+        <div class="window-header">
+            <div class="window-title"><i class="fas fa-image" style="color: #ff9800;"></i> Image Viewer</div>
+            <div class="window-controls">
+                <span class="min-btn" onclick="minimizeWindow('image-window')"></span>
+                <span class="max-btn" onclick="maximizeWindow('image-window')"></span>
+                <span class="close-btn" onclick="closeWindow('image-window')"></span>
+            </div>
+        </div>
+        <div class="window-content" id="image-content" style="text-align: center; padding: 15px;">
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="start-btn"><i class="fab fa-windows"></i> Eto</div>
+        <div class="taskbar-apps" id="taskbar-apps"></div>
+        <div class="clock" id="clock">12:00 AM</div>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const bootScreen = document.getElementById('boot-screen');
+                bootScreen.style.opacity = '0';
+                setTimeout(() => bootScreen.style.display = 'none', 500);
+            }, 1500);
+        });
+
+        let highestZ = 100;
+        let openWindowsList = new Set(); 
+
+        document.querySelectorAll('.window').forEach(win => {
+            const header = win.querySelector('.window-header');
+            let isDragging = false, startX, startY, initialX, initialY;
+
+            win.addEventListener('mousedown', () => { 
+                win.style.zIndex = ++highestZ; 
+                updateTaskbarActiveState(win.id);
+            });
+
+            header.addEventListener('mousedown', e => {
+                isDragging = true;
+                startX = e.clientX; startY = e.clientY;
+                initialX = win.offsetLeft; initialY = win.offsetTop;
+            });
+
+            document.addEventListener('mousemove', e => {
+                if (!isDragging) return;
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                win.style.left = initialX + dx + 'px';
+                win.style.top = initialY + dy + 'px';
+            });
+
+            document.addEventListener('mouseup', () => { isDragging = false; });
+        });
+
+        function updateTaskbar() {
+            const container = document.getElementById('taskbar-apps');
+            container.innerHTML = '';
+            
+            openWindowsList.forEach(winId => {
+                const win = document.getElementById(winId);
+                const item = document.createElement('div');
+                item.className = 'taskbar-app-item';
+                
+                if (win.style.display !== 'none') {
+                    item.classList.add('active');
+                }
+                
+                const titleSpan = document.createElement('span');
+                titleSpan.innerHTML = win.querySelector('.window-title').innerHTML;
+                titleSpan.style.overflow = 'hidden';
+                titleSpan.style.textOverflow = 'ellipsis';
+                
+                const closeBtn = document.createElement('i');
+                closeBtn.className = 'fas fa-times taskbar-close-btn';
+                closeBtn.title = 'Close';
+                
+                closeBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    closeWindow(winId);
+                };
+                
+                item.appendChild(titleSpan);
+                item.appendChild(closeBtn);
+
+                item.onclick = () => {
+                    if (win.style.display === 'none') {
+                        win.style.display = 'flex';
+                        win.style.zIndex = ++highestZ;
+                    } else if (win.style.zIndex == highestZ) {
+                        win.style.display = 'none';
+                    } else {
+                        win.style.zIndex = ++highestZ;
+                    }
+                    updateTaskbar();
+                };
+                
+                container.appendChild(item);
+            });
+        }
+
+        function updateTaskbarActiveState(activeId) {
+            updateTaskbar(); 
+        }
+
+        function openWindow(id) {
+            const win = document.getElementById(id);
+            win.style.display = 'flex';
+            win.style.zIndex = ++highestZ;
+            openWindowsList.add(id);
+            updateTaskbar();
+            
+            if(id === 'browser-window') {
+                setTimeout(() => document.getElementById('browser-search-input').focus(), 100);
+            }
+        }
+
+        function closeWindow(id) {
+            document.getElementById(id).style.display = 'none';
+            openWindowsList.delete(id);
+            updateTaskbar();
+        }
+
+        function minimizeWindow(id) {
+            document.getElementById(id).style.display = 'none';
+            updateTaskbar();
+        }
+
+        function maximizeWindow(id) {
+            const win = document.getElementById(id);
+            if (win.dataset.maximized === 'true') {
+                win.style.width = win.dataset.oldWidth || '600px'; 
+                win.style.height = win.dataset.oldHeight || '400px';
+                win.style.top = win.dataset.oldTop || '100px'; 
+                win.style.left = win.dataset.oldLeft || '150px';
+                win.dataset.maximized = 'false';
+            } else {
+                win.dataset.oldWidth = win.style.width || '600px';
+                win.dataset.oldHeight = win.style.height || '400px';
+                win.dataset.oldTop = win.offsetTop + 'px';
+                win.dataset.oldLeft = win.offsetLeft + 'px';
+
+                win.style.width = '100%'; 
+                win.style.height = 'calc(100vh - 50px)';
+                win.style.top = '0'; 
+                win.style.left = '0';
+                win.dataset.maximized = 'true';
+            }
+        }
+
+        function handleGoogleSearch(e) {
+            if (e.key === 'Enter') {
+                performGoogleSearch();
+            }
+        }
+
+        function performGoogleSearch() {
+            const input = document.getElementById('browser-search-input');
+            const query = input.value.trim();
+            if (query !== '') {
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+                input.value = ''; 
+            }
+        }
+
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }, 1000);
+
+        let projectsData = {};
+
+        fetch('projects.json')
+            .then(response => response.json())
+            .then(data => {
+                projectsData = data;
+                renderRootFolders();
+            }).catch(err => {
+                document.getElementById('projects-container').innerHTML = '<span style="color:#ff5f56;">Error loading files</span>';
+            });
+
+        function renderRootFolders() {
+            const container = document.getElementById('projects-container');
+            if(!container) return;
+            container.innerHTML = '';
+            document.querySelector('#projects-window .window-title').innerHTML = '<i class="fas fa-folder-open"></i> C:\\Users\\Eto\\Projects';
+            
+            for (let key in projectsData) {
+                let project = projectsData[key];
+                container.innerHTML += `
+                    <div class="file-item" ondblclick="openProjectFolder('${key}')">
+                        <i class="fas fa-folder" style="color: #ffd700;"></i>
+                        <span>${project.name}</span>
+                    </div>
+                `;
+            }
+        }
+
+        function openProjectFolder(key) {
+            const project = projectsData[key];
+            const container = document.getElementById('projects-container');
+            
+            document.querySelector('#projects-window .window-title').innerHTML = `<i class="fas fa-folder-open"></i> C:\\Users\\Eto\\Projects\\${project.name}`;
+            
+            let extClass = project.requirements.toLowerCase().includes('windows') ? 'exe' : (project.requirements.toLowerCase().includes('android') ? 'apk' : '');
+            let iconClass = extClass === 'exe' ? 'fab fa-windows' : (extClass === 'apk' ? 'fab fa-android' : 'fas fa-globe');
+            let actionName = extClass === 'exe' || extClass === 'apk' ? 'Download.exe' : 'Open_Web.url';
+            
+            container.innerHTML = `
+                <div class="file-item" ondblclick="renderRootFolders()">
+                    <i class="fas fa-level-up-alt" style="color: #b0b0b0;"></i>
+                    <span>.. (Back)</span>
+                </div>
+                <div class="file-item ${extClass}" ondblclick="openProjectLink('${key}')">
+                    <i class="${iconClass}"></i>
+                    <span>${actionName}</span>
+                </div>
+                <div class="file-item" ondblclick="openScreenshots('${key}')">
+                    <i class="fas fa-images" style="color: #ff9800;"></i>
+                    <span>Screenshots</span>
+                </div>
+                <div class="file-item" ondblclick="openRequirements('${key}')">
+                    <i class="fas fa-file-alt" style="color: #4da6ff;"></i>
+                    <span>req.txt</span>
+                </div>
+            `;
+        }
+
+        function openProjectLink(key) {
+            const project = projectsData[key];
+            if(project.download_url) {
+                window.open(project.download_url, '_blank');
+            } else if (project.url) {
+                window.open(project.url, '_blank');
+            } else {
+                alert('No link found in projects.json');
+            }
+        }
+
+        function openRequirements(key) {
+            const project = projectsData[key];
+            const content = `
+                <h3 style="margin-top: 0;">${project.name}</h3>
+                <hr>
+                <p><strong>Size:</strong> ${project.size}</p>
+                <p><strong>Requirements:</strong> ${project.requirements}</p>
+                <br>
+                <p><em>(c) Mohammed Eto.</em></p>
+            `;
+            document.getElementById('notepad-content').innerHTML = content;
+            openWindow('notepad-window');
+        }
+
+        function openScreenshots(key) {
+            const project = projectsData[key];
+            const contentDiv = document.getElementById('image-content');
+            contentDiv.innerHTML = '';
+            
+            if(project.screenshots && project.screenshots.length > 0) {
+                project.screenshots.forEach(img => {
+                    contentDiv.innerHTML += `<img src="screenshots/${project.screenshots_folder}/${img}" style="max-width: 100%; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);">`;
+                });
+            } else {
+                contentDiv.innerHTML = '<p style="color: #b0b0b0; margin-top: 50px;">No screenshots available for this project.</p>';
+            }
+            openWindow('image-window');
+        }
+    </script>
+    <script src="cmd.js"></script>
+</body>
+</html>
