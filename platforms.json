@@ -1,0 +1,113 @@
+{
+    "platforms": [
+        {
+            "name_en": "Elkheta",
+            "name_ar": "الخطة التعليمية",
+            "type": "learning_platform",
+            "url": "https://elkheta.com/study-content"
+        },
+        {
+            "name_en": "Bassthalk",
+            "name_ar": "بسطتهالك",
+            "type": "learning_platform",
+            "url": "https://bassthalk.com/"
+        },
+        {
+            "name_en": "Ednuva",
+            "name_ar": "إدنوفا",
+            "type": "learning_platform",
+            "url": "https://ednuva.com/"
+        },
+
+        {
+            "name_en": "Omar Sherbeni",
+            "name_ar": "عمر الشربيني",
+            "type": "subject_platform",
+            "field": "math",
+            "lang": "languages",
+            "url": "https://omar-sherbeni.com/"
+        },
+        {
+            "name_en": "El Kelany",
+            "name_ar": "الكلياني",
+            "type": "subject_platform",
+            "field": "math",
+            "lang": "languages",
+            "url": "https://www.fintechelearning.com/teachers/25"
+        },
+        {
+            "name_en": "Mostafa Hossam",
+            "name_ar": "مصطفى حسام",
+            "type": "subject_platform",
+            "field": "math",
+            "lang": "arabic",
+            "url": "https://mr-mostafa-hossam.com"
+        },
+
+        {
+            "name_en": "Dr Joseph Adel",
+            "name_ar": "دكتور جوزيف عادل",
+            "type": "subject_platform",
+            "field": "chemistry",
+            "lang": "languages",
+            "url": "https://www.drjosephadel.com/"
+        },
+        {
+            "name_en": "MAG Academy",
+            "name_ar": "ماج أكاديمي",
+            "type": "subject_platform",
+            "field": "chemistry",
+            "lang": "arabic",
+            "url": "https://magacademy.co/"
+        },
+
+        {
+            "name_en": "Abdelmaaboud",
+            "name_ar": "عبدالمعبود",
+            "type": "subject_platform",
+            "field": "physics",
+            "lang": "arabic",
+            "url": "https://abdelmaaboud.com/"
+        },
+        {
+            "name_en": "Omar Raeia",
+            "name_ar": "عمر رعية",
+            "type": "subject_platform",
+            "field": "physics",
+            "lang": "languages",
+            "url": "https://omarraeia.com/"
+        },
+
+        {
+            "name_en": "Abdelgawad",
+            "name_ar": "عبدالجواد",
+            "type": "subject_platform",
+            "field": "biology",
+            "lang": "arabic",
+            "url": "https://ahmed-elgohary.com/"
+        },
+
+        {
+            "name_en": "Abdelhamid Hamed",
+            "name_ar": "عبد الحميد حامد",
+            "type": "subject_platform",
+            "field": "english",
+            "lang": "both",
+            "url": "https://fullmark-en.com/"
+        },
+
+        {
+            "name_en": "Ministry of Education Egypt",
+            "name_ar": "وزارة التربية والتعليم",
+            "type": "official",
+            "url": "https://moe.gov.eg/"
+        },
+
+        {
+            "name_en": "Booxtore",
+            "name_ar": "بوك ستور",
+            "type": "book_store",
+            "url": "https://booxtore.net/"
+        }
+    ]
+}

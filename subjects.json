@@ -1,0 +1,19 @@
+{
+    "subjects": {
+
+        "science": {
+            "name_ar": "علمي علوم",
+            "subjects": ["biology", "chemistry", "physics", "english"]
+        },
+
+        "math": {
+            "name_ar": "علمي رياضة",
+            "subjects": ["math", "physics", "chemistry", "english"]
+        },
+
+        "literary": {
+            "name_ar": "أدبي",
+            "subjects": ["arabic", "history", "geography", "english"]
+        }
+    }
+}
