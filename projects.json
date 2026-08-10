@@ -42,7 +42,7 @@
     "screenshots": ["home_page.png"]
   },
   "rosary": {
-    "name": "سبحة الكترونية",
+    "name": "Sebha",
     "size": "N/A (Web)",
     "requirements": "متصفح إنترنت",
     "screenshots_folder": "rosary",
@@ -55,6 +55,14 @@
     "screenshots_folder": "Pomodoro",
     "screenshots": ["home_page.png"]
   },
+  "eto_keyboard": {
+    "name": "Eto Keyboard",
+    "size": "N/A (Web)",
+    "requirements": "متصفح إنترنت",
+    "screenshots_folder": "Eto_Keyboard",
+    "screenshots": ["Menu_Page.png","1_week_plan.png","1_month_plan.png","2_month_plan.png","Example_for_a_day.png","Exam_Page.png","Result_Page.png"]
+  },
+
   "eto_manager": {
     "name": "Eto Manager",
     "size": "64.48 MB",
@@ -90,20 +98,23 @@
       "Convert_Video_to_Gif.png"
     ]
   },
+  "eto_mp3": {
+    "name": "Eto Mp3",
+    "size": "103.2 MB",
+    "requirements": "Windows 10+, 250 MB RAM",
+    "screenshots_folder": "Eto_Mp3",
+    "screenshots": [
+      "Light_mode", 
+      "Dark_mode.png"
+    ]
+  },
   "eto_downloader_manager": {
     "name": "Eto Downloader Manager",
     "size": "500 MB",
-    "requirements": "2GB RAM",
+    "requirements": "Windows 10+, 2GB RAM",
     "download_url": "https://github.com/EngMohammedSaad/Eto.io/releases/download/ETO/Eto_Downloader.Manager.zip",
     "screenshots_folder": "Eto_Downloader_Manager",
     "screenshots": []
-  },
-  "etoify": {
-    "name": "Etoify Music Player",
-    "size": "218.14 MB",
-    "requirements": "Windows 10+, 4GB RAM",
-    "screenshots_folder": "Etoify",
-    "screenshots": ["home_page.png", "liked_song_page.png", "lyrics.png", "download_page.png"]
   },
   "game1": {
     "name": "Cars 2d Street Racing",
@@ -111,5 +122,19 @@
     "requirements": "متصفح إنترنت",
     "screenshots_folder": "Cars_2d",
     "screenshots": ["home_page.png", "shop_page.png", "settings_page.png", "leaderboard_page.png", "dialy_reward_page.png"]
+  },
+  "game2": {
+    "name": "FlappyBird",
+    "size": "N/A (Web)",
+    "requirements": "متصفح إنترنت",
+    "screenshots_folder": "FlappyBird",
+    "screenshots": ["gameplay.png", "lose.png", "Menu.png","settings.png"]
+  },
+  "game3": {
+    "name": "Kennedy",
+    "size": "N/A (Web)",
+    "requirements": "متصفح إنترنت",
+    "screenshots_folder": "Kennedy",
+    "screenshots": ["Login.png", "offline_games.png", "itobes_complete_game.png", "Card_game.png", "lobby_online.png", "settings_profile.png", "settings_sounds.png", "settings_system.png"]
   }
 }
